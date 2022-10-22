@@ -1,9 +1,12 @@
 import { useState } from "react";
 import SubCatList from "./SubcatList";
 import SubCatApi from "../../../dataStore/api/SubCatApi";
+import { useSelector } from "react-redux";
 
 const CatList = (props) => {
   const [isOpen, setIsOpen] = useState(props.isOpen ?? false);
+
+  const language = useSelector((state) => state.settings.language) || "en";
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -19,13 +22,13 @@ const CatList = (props) => {
         <div className="bg-red-100 flex justify-between items-center mx-3 dark:bg-transparent">
           <div className="flex flex-row justify-between items-center w-full h-18 px-3   ">
             <div className="flex flex-row items-center">
-             
               <div className="text-left ml-4">
                 <p className="text-title font-inter font-medium text-base ">{props.catName}</p>
-                <p className="text-mute-grey text-xs mt-1 ">Subcategory: {props.subCat}</p>
+                <p className="text-mute-grey text-xs mt-1 ">
+                  {language === "en" ? "Subcategory" : "সাব ক্যাটেগোরি"}: {props.subCat}
+                </p>
               </div>
             </div>
-          
           </div>
         </div>
       </a>

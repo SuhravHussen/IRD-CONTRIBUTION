@@ -2,17 +2,17 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DoprDown from "../../../Utils/DropDown";
 import { ScriptDropdown } from "../../../../dataStore/feature/GlobalDataSlicer";
+import { setArabicFont, setArabicFontSize, setFontSize } from "../../../../dataStore/feature/SettingsSlicer";
 
 const FontSettings = () => {
   const scriptDrop = useSelector((state) => state.globalData.arabicScriptDrop);
   const dispatch = useDispatch();
 
   const MAX = 40;
-  const [translationFont, setTranslationFont] = useState(16);
+  const { translationFontSize, arabicFont, arabicFontSize } = useSelector((state) => state.settings);
   const [selectedScript, setSelectedScript] = useState("KGFQ");
-  const [selectedFont, setSelectedFont] = useState("KGFQ");
   const [fontDropdown, setFontDropdown] = useState(false);
-  const [arabicFont, setArabicFont] = useState(15);
+
   const getBackgroundSize = (font) => {
     return {
       backgroundSize: `${(font * 100) / MAX}% 100%`,
@@ -28,11 +28,11 @@ const FontSettings = () => {
             type="range"
             min="0"
             max={MAX}
-            onChange={(e) => setTranslationFont(e.target.value)}
-            style={getBackgroundSize(translationFont)}
-            value={translationFont}
+            onChange={(e) => dispatch(setFontSize(e.target.value))}
+            style={getBackgroundSize(translationFontSize)}
+            value={translationFontSize}
           />
-          <div>{translationFont}</div>
+          <div>{translationFontSize}</div>
         </div>
       </div>
 
@@ -61,15 +61,30 @@ const FontSettings = () => {
         </div>
         <div className="mt-4 w-[96%]">
           <p className="text-title text-sm  mb-3">Arabic Font</p>
-          <DoprDown selected={selectedFont} dropDown={fontDropdown} setDropDown={setFontDropdown}>
+          <DoprDown selected={arabicFont} dropDown={fontDropdown} setDropDown={setFontDropdown}>
             <div className="cursor-pointer font-Inter text-[15px] flex flex-col px-2">
-              <div className="hover:bg-[#F8F8F9] px-4 py-2 " onClick={(e) => setSelectedFont(e.target.innerText, setFontDropdown(!fontDropdown))}>
+              <div
+                className="hover:bg-[#F8F8F9] px-4 py-2 "
+                onClick={(e) => {
+                  dispatch(setArabicFont(e.target.innerText));
+                  setFontDropdown(!fontDropdown);
+                }}>
                 KGFQ
               </div>
-              <div className="hover:bg-[#F8F8F9] px-4 py-2 " onClick={(e) => setSelectedFont(e.target.innerText, setFontDropdown(!fontDropdown))}>
+              <div
+                className="hover:bg-[#F8F8F9] px-4 py-2 "
+                onClick={(e) => {
+                  dispatch(setArabicFont(e.target.innerText));
+                  setFontDropdown(!fontDropdown);
+                }}>
                 Noor e Huda
               </div>
-              <div className="hover:bg-[#F8F8F9] px-4 py-2 " onClick={(e) => setSelectedFont(e.target.innerText, setFontDropdown(!fontDropdown))}>
+              <div
+                className="hover:bg-[#F8F8F9] px-4 py-2 "
+                onClick={(e) => {
+                  dispatch(setArabicFont(e.target.innerText));
+                  setFontDropdown(!fontDropdown);
+                }}>
                 Noor E Hedayet
               </div>
             </div>
@@ -85,11 +100,11 @@ const FontSettings = () => {
             type="range"
             min="0"
             max={MAX}
-            onChange={(e) => setArabicFont(e.target.value)}
+            onChange={(e) => dispatch(setArabicFontSize(e.target.value))}
             style={getBackgroundSize(arabicFont)}
-            value={arabicFont}
+            value={arabicFontSize}
           />
-          <div>{arabicFont}</div>
+          <div>{arabicFontSize}</div>
         </div>
       </div>
     </div>

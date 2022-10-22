@@ -1,24 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setReference, setShowArabic, setTranslation, setTransliteration } from "../../../../dataStore/feature/SettingsSlicer";
 
 const GeneralSettings = () => {
-  const [isArabic, setArabic] = useState(JSON.parse(localStorage.getItem("showArabic") ?? true));
-  const [isTranslation, setTranslation] = useState(JSON.parse(localStorage.getItem("showTranslation")));
-  const [isTransliteration, setTransliteration] = useState(JSON.parse(localStorage.getItem("showTransliteration")));
-  const [isRefference, setRefference] = useState(JSON.parse(localStorage.getItem("showRefference")));
+  const { showArabic, showTranslation, showTransliteration, showReference } = useSelector((state) => state.settings);
 
-  useEffect(() => {
-    localStorage.setItem("showArabic", isArabic);
-    localStorage.setItem("showTranslation", isTranslation);
-    localStorage.setItem("showTransliteration", isTransliteration);
-    localStorage.setItem("showRefference", isRefference);
-  }, [isArabic, isTranslation, isTransliteration, isRefference]);
+  const dispatch = useDispatch();
 
   return (
     <div className="flex flex-col py-2 px-4  animate-scale-down">
-      <CheckboxList onClick={() => setArabic(!isArabic)} state={isArabic} name="Show Arabic" />
-      <CheckboxList onClick={() => setTranslation(!isTranslation)} state={isTranslation} name="Show Translation" />
-      <CheckboxList onClick={() => setTransliteration(!isTransliteration)} state={isTransliteration} name="Show Transliteration" />
-      <CheckboxList onClick={() => setRefference(!isRefference)} state={isRefference} name="Show Refference" />
+      <CheckboxList onClick={() => dispatch(setShowArabic(!showArabic))} state={showArabic} name="Show Arabic" />
+      <CheckboxList onClick={() => dispatch(setTranslation(!showTranslation))} state={showTranslation} name="Show Translation" />
+      <CheckboxList onClick={() => dispatch(setTransliteration(!showTransliteration))} state={showTransliteration} name="Show Transliteration" />
+      <CheckboxList onClick={() => dispatch(setReference(!showReference))} state={showReference} name="Show Refference" />
     </div>
   );
 };

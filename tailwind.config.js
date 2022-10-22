@@ -23,19 +23,17 @@ module.exports = {
         "scale-down": {
           "0%": {
             opacity: "0",
-            
           },
           "100%": {
-            opacity: '1',
+            opacity: "1",
           },
         },
         "scale-up": {
           "0%": {
             opacity: "1",
-            
           },
           "100%": {
-            opacity: '0',
+            opacity: "0",
           },
         },
       },
@@ -54,11 +52,7 @@ module.exports = {
         "xl-max": { max: "1534px" },
         "2xl-max": { max: "1919px" },
 
-
-
-
-
-        xs: { max: "639px"},
+        xs: { max: "639px" },
         sm: { min: "640px", max: "767px" },
         md: { min: "768px", max: "1139px" },
         lg: { min: "1140px", max: "1279px" },
@@ -70,12 +64,14 @@ module.exports = {
         inter: ["Inter", "sans-serif"],
         kgfq: ["kgfq", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
+        noorehuda: ["noorehuda", "sans-serif"],
+        noorehedayet: ["noorehedayet", "sans-serif"],
       },
       container: {
         center: true,
       },
       dropShadow: {
-       'bg' : "0 10px 14px rgba(31,164,91,0.15)",
+        bg: "0 10px 14px rgba(31,164,91,0.15)",
       },
 
       fontSize: {
@@ -91,7 +87,7 @@ module.exports = {
         "dua-bg": "#F7F8FA",
         "icon-2bg": "#F7F8FA",
         "icon-bg": "#E8F0F5",
-       "bgss" : "#1FA45B",
+        bgss: "#1FA45B",
         title: "#393939",
         devider: "#efefef",
         "body-bg": "#ebeef2",
@@ -161,11 +157,8 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('tailwind-scrollbar'),
-  ],
+  plugins: [require("tailwind-scrollbar")],
   variants: {
-    scrollbar: ['rounded', 'dark'],
-    
-},
+    scrollbar: ["rounded", "dark"],
+  },
 };

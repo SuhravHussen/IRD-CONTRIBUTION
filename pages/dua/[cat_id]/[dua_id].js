@@ -27,13 +27,11 @@ const DuaDetails = () => {
 
   return (
     <Master ns={true}>
-
-        <CatContainer title={"Categories"} />
-        <DuaContainer ns={true}>
-          <SectionCard text="The servant is dependent on his Lord" />
-          {sameIDDuasGrouped && sameIDDuasGrouped?.map((item) => <DuaCard dua={item} />)}
-        </DuaContainer>
-
+      <CatContainer title={"Categories"} />
+      <DuaContainer ns={true}>
+        <SectionCard text="The servant is dependent on his Lord" />
+        {sameIDDuasGrouped && sameIDDuasGrouped?.map((item) => <DuaCard dua={item} />)}
+      </DuaContainer>
     </Master>
   );
 };

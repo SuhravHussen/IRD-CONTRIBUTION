@@ -5,13 +5,29 @@ import RightBar from "./RightBar";
 import { useRouter } from "next/router";
 import { settingState } from "../../dataStore/middlewares/localStorageMiddlware";
 import { useDispatch } from "react-redux";
-import { setLanguage } from "../../dataStore/feature/SettingsSlicer";
+import {
+  setArabicFont,
+  setArabicFontSize,
+  setFontSize,
+  setLanguage,
+  setReference,
+  setShowArabic,
+  setTranslation,
+  setTransliteration,
+} from "../../dataStore/feature/SettingsSlicer";
 function Master({ children, ns, title, subTitle }) {
   const dispatch = useDispatch();
 
-  // hydrate saved state
+  // hydrate saved state from local storage
   useEffect(() => {
     dispatch(setLanguage(settingState?.language));
+    dispatch(setShowArabic(settingState?.showArabic));
+    dispatch(setTranslation(settingState?.showTranslation));
+    dispatch(setReference(settingState?.showReference));
+    dispatch(setTransliteration(settingState?.showTransliteration));
+    dispatch(setFontSize(settingState?.translationFontSize));
+    dispatch(setArabicFont(settingState?.arabicFont));
+    dispatch(setArabicFontSize(settingState?.arabicFontSize));
   }, []);
 
   const router = useRouter();

@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 const CatContainer = ({ ns, title, hidden = "xs:hidden sm:hidden md:hidden lg:hidden" }) => {
   const [search, setSearch] = useState(false);
   const data = useSelector((state) => state.duaCat.data);
+  const language = useSelector((state) => state.settings.language);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -35,9 +36,9 @@ const CatContainer = ({ ns, title, hidden = "xs:hidden sm:hidden md:hidden lg:hi
             <CatList
               isOpen={item.cat_id == 1 ? true : false}
               catId={item.cat_id}
-              catName={item.cat_name_en}
-              subCat={item.no_of_subcat}
-              DuaC={item.no_of_dua}
+              catName={language === "en" ? item.cat_name_en : item.cat_name_bn}
+              subCat={language === "en" ? item.no_of_subcat : item.no_of_subcat.toLocaleString("bn")}
+              DuaC={language === "en" ? item.no_dua : item.no_of_dua.toLocaleString("bn")}
             />
           ))}
       </div>
