@@ -1,29 +1,29 @@
+import { useSelector } from "react-redux";
 import Botombar from "./Botombar";
 import TopBar from "./TopBar";
 
-const DetailsCard = () => {
+const DetailsCard = ({ details, planId }) => {
+  const { language } = useSelector((state) => state.settings);
+  const duaName = language === "en" ? "dua_name_en" : "dua_name_bn";
+  const topPart = language === "en" ? "top_en" : "top_bn";
+  const translation = language === "en" ? "translation_en" : "translation_bn";
+  const transliteration = language === "en" ? "transliteration_en" : "transliteration_bn";
+  const reference = language === "en" ? "refference_en" : "refference_bn";
   return (
     <div className="bg-red-100 rounded-2lg mb-5 dark:bg-[#223449]">
       <div className="p-6">
-        <TopBar />
+        <TopBar planId={planId} title={details[duaName]} dua={details} />
         <div className="flex flex-col justify-start items-start">
           {/* Body */}
-          <p className="my-5 text-title text-justify font-inter font-normal ">
-            All human beings depend on Allah for their welfare and prevention of evil in various matters of their religion and world. Allah says
-            (interpretation of the meaning): O mankind, you are those in need of Allah, while Allah is the Free of need, the Praiseworthy.
-          </p>
+          <p className="my-5 text-title text-justify font-inter font-normal ">{details[topPart]}</p>
           {/* Arabic */}
-          <p className="my-5 text-title text-right leading-loose font-kgfq text-3xl ">
-            لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيْكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، اَللَّهُمَّ لَا
-            مَانِعَ لِمَا أَعْطَيْتَ وَلَا مُعْطِيَ لِمَا مَنَعْتَ وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ اَللَّهُمَّ لَا مَانِعَ لِمَا
-            أَعْطَيْتَ وَلَا مُعْطِيَ لِمَا مَنَعْتَ وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ
-          </p>
-          <p className="my-5 text-title text-justify font-inter font-normal ">
-            All human beings depend on Allah for their welfare and prevention of evil in various matters of their religion and world. Allah says
-            (interpretation of the meaning): O mankind, you are those in need of Allah,
-          </p>
+          <p className="my-5 text-title text-right leading-loose font-kgfq text-3xl ">{details?.dua_arabic}</p>
+          {/* transliteration */}
+          <p className="my-5 text-title text-justify font-inter font-normal ">{details[transliteration]}</p>
+          {/* Translation */}
+          <p className="my-5 text-title text-justify font-inter font-normal ">{details[translation]}</p>
           <p className="mt-2 font-inter font-normal text-base ">Reference</p>
-          <p className="mt-1 font-inter font-normal text-base text-title ">Surah Al-Fatir 35:15</p>
+          <p className="mt-1 font-inter font-normal text-base text-title ">{details[reference]}</p>
         </div>
       </div>
       <Botombar />

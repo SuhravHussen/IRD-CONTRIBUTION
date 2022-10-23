@@ -1,6 +1,6 @@
 import React from "react";
 
-function PopupBtn({ onClose }) {
+function PopupBtn({ onClose, handleSubmit }) {
   return (
     <div className="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end mt-7 mb-4">
       <button
@@ -11,6 +11,7 @@ function PopupBtn({ onClose }) {
         Cancel
       </button>
       <button
+        onClick={handleSubmit}
         type="button"
         className="w-40 h-11 inline-block   transition duration-150 ease-in-out ml-1 font-inter font-medium text-base leading-5 text-black ">
         Save

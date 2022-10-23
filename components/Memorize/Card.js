@@ -4,15 +4,25 @@ import { useTheme } from "next-themes";
 import React, { useState } from "react";
 import Rodal from "rodal";
 import "rodal/lib/rodal.css";
+import { DateTime } from "luxon";
 
-const Card = (props) => {
+const Card = ({ details }) => {
   const [modalShow, setModalShow] = useState(false);
   const { theme } = useTheme();
+
+  const today = DateTime.fromISO(new Date().toISOString());
+
+  const date2 = DateTime.local().plus({ days: details.days });
+
+  const diff = date2.diff(today, ["years", "months", "days", "hours"]);
+
+  const completed = details.dua.filter((item) => item.completed === true).length;
+  const percentage = Math.round((completed / details.dua.length) * 100);
   return (
     <div className="bg-red-100 w-full max-h-max  p-5 border-[.5px] border-solid border-devider dark:bg-[#223449] dark:border-none animate-fade-in-up">
       <div className=" flex justify-between items-center">
-        <Link href="/memorize/details">
-          <p className="cursor-pointer font-inter text-left font-semibold text-md text-[#373737] sm:text-base ">Title bar</p>
+        <Link href={`/memorize/details/${details.id}`}>
+          <p className="cursor-pointer font-inter text-left font-semibold text-md text-[#373737] sm:text-base ">{details.name}</p>
         </Link>
         <button
           onClick={() => setModalShow(true)}
@@ -33,7 +43,7 @@ const Card = (props) => {
                
                ">
               {" "}
-              Total Selected Duas: {props.selected}
+              Total Selected Duas: {details.dua.length}
             </p>
             <p
               className="flex text-title opacity-80 font-inter font-normal text-sm
@@ -44,7 +54,7 @@ const Card = (props) => {
               
               ">
               {" "}
-              Days Remaining: {props.remaining}
+              Days Remaining: {diff.days}
             </p>
             <p
               className="flex text-title opacity-80 font-inter font-normal text-sm
@@ -55,15 +65,15 @@ const Card = (props) => {
               
               ">
               {" "}
-              Completed Dua: {props.completed}
+              Completed Dua: {completed}
             </p>
           </div>
 
           <div className="w-full bg-devider  h-2.5 mb-1.5">
-            <div className=" h-2.5 " style={{ width: props.percentage }}></div>
+            <div className="h-2.5 bg-lime-400" style={{ width: `${percentage}%` }}></div>
           </div>
 
-          <p className="ml-2 text-title opacity-80 font-inter font-normal text-xs flex justify-end ">{props.percentage} Completed</p>
+          <p className="ml-2 text-title opacity-80 font-inter font-normal text-xs flex justify-end ">{percentage}% Completed</p>
         </div>
       </Link>
       <Rodal
@@ -73,7 +83,7 @@ const Card = (props) => {
         customStyles={{ backgroundColor: "transparent", boxShadow: "none" }}
         visible={modalShow}
         onClose={() => setModalShow(false)}>
-        <Memorize onClose={() => setModalShow(false)} />
+        <Memorize plan={details} onClose={() => setModalShow(false)} />
       </Rodal>
     </div>
   );

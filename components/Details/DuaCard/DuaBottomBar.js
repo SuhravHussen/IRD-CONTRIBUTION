@@ -13,6 +13,7 @@ const DuaBottomBar = (props) => {
   const [shareShow, setShareShow] = useState(false);
   const [reportShow, setReportShow] = useState(false);
   const { theme } = useTheme();
+
   return (
     <div className="">
       <div className="w-full h-[1px] mt-5 bg-[#E2E2E2] dark: dark:hidden"></div>
@@ -68,6 +69,8 @@ const DuaBottomBar = (props) => {
         onClose={() => setBookmark(false)}>
         <BookmarkPopup onClose={() => setBookmark(false)} />
       </Rodal>
+
+      {/* plan popup */}
       <Rodal
         showCloseButton={false}
         width={500}
@@ -75,8 +78,9 @@ const DuaBottomBar = (props) => {
         customStyles={{ backgroundColor: "transparent", boxShadow: "none" }}
         visible={planShow}
         onClose={() => setPlanShow(false)}>
-        <PlanPopup onClose={() => setPlanShow(false)} />
+        <PlanPopup type="dua" dua={props.dua} onClose={() => setPlanShow(false)} />
       </Rodal>
+      {/*  */}
       <Rodal
         showCloseButton={false}
         width={500}

@@ -84,7 +84,7 @@ const DuaCard = ({ dua }) => {
           )}
         </div>
       </div>
-      <DuaBottomBar audio={dua[0].audio} />
+      <DuaBottomBar dua={dua[0] ? dua[0] : dua} audio={dua[0].audio} />
     </div>
   );
 };
