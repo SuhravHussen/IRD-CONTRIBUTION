@@ -1,5 +1,5 @@
 import { createListenerMiddleware } from "@reduxjs/toolkit";
-import { addPlan, editPlan, initialState as plansInitialState, updateCompleted } from "../feature/MemorizeSlicer";
+import { addPlan, deleteDua, editPlan, initialState as plansInitialState, updateCompleted } from "../feature/MemorizeSlicer";
 import {
   initialState as initialSettingsState,
   setLanguage,
@@ -142,6 +142,18 @@ localStorageMiddleware.startListening({
 
 localStorageMiddleware.startListening({
   actionCreator: updateCompleted,
+  effect: (action, api) => {
+    localStorage.setItem(
+      "plans",
+      JSON.stringify({
+        plans: api.getState().memorize.plans,
+      })
+    );
+  },
+});
+
+localStorageMiddleware.startListening({
+  actionCreator: deleteDua,
   effect: (action, api) => {
     localStorage.setItem(
       "plans",

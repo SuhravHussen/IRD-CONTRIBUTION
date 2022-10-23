@@ -4,13 +4,14 @@ import React, { useState } from "react";
 import Rodal from "rodal";
 import "rodal/lib/rodal.css";
 import DeletePopup from "../../Modal/DeletePopup/DeletePopup";
-const Botombar = () => {
+import Link from "next/link";
+const Botombar = ({ copyText, copyElement, dua, planId }) => {
   const [modalShow, setModalShow] = useState(false);
   const { theme } = useTheme();
   const [hidden, setHidden] = useState("hidden");
   const [play, setPlay] = useState("audiobtn");
   const [suffle, setSuffle] = useState("suffle");
-
+  const [showCopied, setShowCopied] = useState(false);
   const handleHidden = () => {
     if (hidden === "hidden") {
       setHidden("block");
@@ -30,9 +31,20 @@ const Botombar = () => {
       setSuffle("suffle");
     }
   };
+
+  const handleCopy = () => {
+    setShowCopied(true);
+    setTimeout(() => {
+      setShowCopied(false);
+    }, 1000);
+    copyElement.current.select();
+    copyElement.current.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(copyText);
+    console.log("copied", copyElement.current.value);
+  };
   return (
     <div className="">
-      <div class="w-full h-[1px] bg-[#E2E2E2] dark:hidden"></div>
+      <div className="w-full h-[1px] bg-[#E2E2E2] dark:hidden"></div>
       <div className={`${play === "pause" ? " xs:flex-col xs:px-6 xs:justify-center xs:items-center" : "flex-row"} flex justify-between px-6 `}>
         <div className="py-4 flex">
           <img onClick={() => handleHidden()} src={`/assets/others/${play}.svg`} alt="" />
@@ -50,14 +62,32 @@ const Botombar = () => {
             <img className={hidden} onClick={handleSuffle} src={`/assets/memorize/${suffle}.svg`} alt="" />
           )}
         </div>
-        <div className="flex flex-row py-6 gap-x-8">
-          {theme === "dark" ? <img src="/assets/others/dark/copy.svg" alt="" /> : <img src="/assets/others/copy.svg" alt="" />}
-          {theme === "dark" ? (
-            <img onClick={() => setModalShow(true)} src="/assets/others/dark/deleteBtn.svg" alt="" />
-          ) : (
-            <img onClick={() => setModalShow(true)} src="/assets/others/deleteBtn.svg" alt="" />
+        <div className="flex flex-row py-6 gap-x-8 relative">
+          {showCopied && (
+            <div className="absolute  bg-stone-800 rounded-md p-2 bottom-16 -left-16 animate-bounce transition duration-1000 ease-in-out cursor-pointer">
+              <p className="text-white">Copied</p>
+            </div>
           )}
-          {theme === "dark" ? <img src="/assets/others/dark/direct.svg" alt="" /> : <img src="/assets/others/direct.svg" alt="" />}
+
+          {theme === "dark" ? (
+            <img src="/assets/others/dark/copy.svg" alt="" onClick={handleCopy} />
+          ) : (
+            <img src="/assets/others/copy.svg" alt="" onClick={handleCopy} />
+          )}
+          {theme === "dark" ? (
+            <img className="cursor-pointer" onClick={() => setModalShow(true)} src="/assets/others/dark/deleteBtn.svg" alt="" />
+          ) : (
+            <img onClick={() => setModalShow(true)} className="cursor-pointer" src="/assets/others/deleteBtn.svg" alt="" />
+          )}
+          {theme === "dark" ? (
+            <Link href={`/dua/${dua.cat_id}/${dua.subcat_id}#${dua.id}`}>
+              <img className="cursor-pointer" src="/assets/others/dark/direct.svg" alt="" />
+            </Link>
+          ) : (
+            <Link href={`/dua/${dua.cat_id}/${dua.subcat_id}#${dua.id}`}>
+              <img className="cursor-pointer" src="/assets/others/direct.svg" alt="" />
+            </Link>
+          )}
           {theme === "dark" ? <img src="/assets/others/dark/share.svg" alt="" /> : <img src="/assets/others/share.svg" alt="" />}
         </div>
         <Rodal
@@ -67,7 +97,7 @@ const Botombar = () => {
           customStyles={{ backgroundColor: "transparent", boxShadow: "none" }}
           visible={modalShow}
           onClose={() => setModalShow(false)}>
-          <DeletePopup onClose={() => setModalShow(false)} />
+          <DeletePopup planId={planId} dua={dua} onClose={() => setModalShow(false)} />
         </Rodal>
       </div>
     </div>

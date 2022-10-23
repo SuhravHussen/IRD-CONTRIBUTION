@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useSelector } from "react-redux";
 import Botombar from "./Botombar";
 import TopBar from "./TopBar";
@@ -9,8 +10,12 @@ const DetailsCard = ({ details, planId }) => {
   const translation = language === "en" ? "translation_en" : "translation_bn";
   const transliteration = language === "en" ? "transliteration_en" : "transliteration_bn";
   const reference = language === "en" ? "refference_en" : "refference_bn";
+
+  const copyText = `${details?.dua_arabic ?? ""} ${details?.[transliteration] ?? ""}  ${details?.[reference] ?? ""}`;
+  const copyElement = useRef(null);
   return (
     <div className="bg-red-100 rounded-2lg mb-5 dark:bg-[#223449]">
+      <input ref={copyElement} type="text" style={{ display: "none" }} value={copyText} />
       <div className="p-6">
         <TopBar planId={planId} title={details[duaName]} dua={details} />
         <div className="flex flex-col justify-start items-start">
@@ -26,7 +31,7 @@ const DetailsCard = ({ details, planId }) => {
           <p className="mt-1 font-inter font-normal text-base text-title ">{details[reference]}</p>
         </div>
       </div>
-      <Botombar />
+      <Botombar copyText={copyText} copyElement={copyElement} planId={planId} dua={details} />
     </div>
   );
 };

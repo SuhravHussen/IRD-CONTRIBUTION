@@ -1,6 +1,6 @@
 import React from "react";
 
-function DeletePopupBtn() {
+function DeletePopupBtn({ handleDelete }) {
   return (
     <div className="flex flex-shrink-0 flex-wrap items-center justify-end mt-7">
       <button
@@ -10,6 +10,7 @@ function DeletePopupBtn() {
         Cancel
       </button>
       <button
+        onClick={handleDelete}
         type="button"
         className="w-40 h-11 inline-block bg-[#FF3F3F]  transition duration-150 ease-in-out ml-1 font-inter font-medium text-base leading-5 text-black ">
         Delete

@@ -37,10 +37,16 @@ export const memorizeSlicer = createSlice({
       const previousDuaIndex = state.plans[previousPlanIndex].dua.findIndex((dua) => dua.id === action.payload.duaId);
       state.plans[previousPlanIndex].dua[previousDuaIndex].completed = action.payload.completed;
     },
+
+    deleteDua: (state, action) => {
+      const previousPlanIndex = state.plans.findIndex((plan) => plan.id === action.payload.planId);
+      const previousDuaIndex = state.plans[previousPlanIndex].dua.findIndex((dua) => dua.id === action.payload.duaId);
+      state.plans[previousPlanIndex].dua.splice(previousDuaIndex, 1);
+    },
   },
 });
 
-export const { addPlan, updateFromLocalStorage, editPlan, updateCompleted } = memorizeSlicer.actions;
+export const { addPlan, updateFromLocalStorage, editPlan, updateCompleted, deleteDua } = memorizeSlicer.actions;
 
 export default memorizeSlicer.reducer;
 
