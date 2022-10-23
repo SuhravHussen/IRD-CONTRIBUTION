@@ -14,6 +14,8 @@ import SearchSlicer from "./feature/SearchSlicer";
 import GlobalDataSlicer from "./feature/GlobalDataSlicer";
 import SettingsSlicer from "./feature/SettingsSlicer";
 import { localStorageMiddleware } from "./middlewares/localStorageMiddlware";
+import AllDuaSlicer from "./feature/AllDuaSlicer";
+import MemorizeSlicer from "./feature/MemorizeSlicer";
 
 export const store = configureStore({
   reducer: {
@@ -31,6 +33,8 @@ export const store = configureStore({
     duaSearch: SearchSlicer,
     globalData: GlobalDataSlicer,
     settings: SettingsSlicer,
+    allDuas: AllDuaSlicer,
+    memorize: MemorizeSlicer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware.middleware),
 });

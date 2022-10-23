@@ -115,5 +115,12 @@ localStorageMiddleware.startListening({
   },
 });
 
-export const settingState =
-  typeof window !== "undefined" && localStorage.getItem("settings") ? JSON.parse(localStorage.getItem("settings")) : initialState;
+export const settingState = () => {
+  const settings = localStorage.getItem("settings");
+  if (settings) {
+    return JSON.parse(settings);
+  } else {
+    console.log("initialState", initialState);
+    return initialState;
+  }
+};

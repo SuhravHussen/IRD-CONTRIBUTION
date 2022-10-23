@@ -24,7 +24,7 @@ const SearchBox = ({ hint }) => {
   const [isEnter, setEnter] = useState("");
 
   useEffect(() => {
-    SearchApi.duaSearch(searchText, "en");
+    // SearchApi.duaSearch(searchText, "en");
   }, [searchText, isEnter, data]);
 
   return (

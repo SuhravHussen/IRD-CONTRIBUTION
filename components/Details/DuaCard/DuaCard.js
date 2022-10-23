@@ -9,7 +9,6 @@ const DuaCard = ({ dua }) => {
     (state) => state.settings
   );
 
-  console.log(arabicFont);
   useEffect(() => {
     return () => {
       setAnimation(true);

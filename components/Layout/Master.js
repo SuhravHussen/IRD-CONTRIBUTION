@@ -20,14 +20,16 @@ function Master({ children, ns, title, subTitle }) {
 
   // hydrate saved state from local storage
   useEffect(() => {
-    dispatch(setLanguage(settingState?.language));
-    dispatch(setShowArabic(settingState?.showArabic));
-    dispatch(setTranslation(settingState?.showTranslation));
-    dispatch(setReference(settingState?.showReference));
-    dispatch(setTransliteration(settingState?.showTransliteration));
-    dispatch(setFontSize(settingState?.translationFontSize));
-    dispatch(setArabicFont(settingState?.arabicFont));
-    dispatch(setArabicFontSize(settingState?.arabicFontSize));
+    const state = settingState();
+
+    dispatch(setLanguage(state?.language));
+    dispatch(setShowArabic(state?.showArabic));
+    dispatch(setTranslation(state?.showTranslation));
+    dispatch(setReference(state?.showReference));
+    dispatch(setTransliteration(state?.showTransliteration));
+    dispatch(setFontSize(state?.translationFontSize));
+    dispatch(setArabicFont(state?.arabicFont));
+    dispatch(setArabicFontSize(state?.arabicFontSize));
   }, []);
 
   const router = useRouter();
