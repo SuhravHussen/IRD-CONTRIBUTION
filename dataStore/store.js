@@ -13,9 +13,11 @@ import BookDetailsSlicer from "./feature/BookDetailsSlicer";
 import SearchSlicer from "./feature/SearchSlicer";
 import GlobalDataSlicer from "./feature/GlobalDataSlicer";
 import SettingsSlicer from "./feature/SettingsSlicer";
-import { localStorageMiddleware } from "./middlewares/localStorageMiddlware";
+
 import AllDuaSlicer from "./feature/AllDuaSlicer";
 import MemorizeSlicer from "./feature/MemorizeSlicer";
+import { localStorageMiddleware } from "./middlewares/localsorageMiddleware/listner";
+import BookmarkSlicer from "./feature/BookmarkSlicer";
 
 export const store = configureStore({
   reducer: {
@@ -35,6 +37,7 @@ export const store = configureStore({
     settings: SettingsSlicer,
     allDuas: AllDuaSlicer,
     memorize: MemorizeSlicer,
+    bookmarks: BookmarkSlicer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware.middleware),
 });

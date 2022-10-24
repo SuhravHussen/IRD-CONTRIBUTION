@@ -67,7 +67,7 @@ const DuaBottomBar = (props) => {
         customStyles={{ backgroundColor: "transparent", boxShadow: "none" }}
         visible={bookmarkShow}
         onClose={() => setBookmark(false)}>
-        <BookmarkPopup onClose={() => setBookmark(false)} />
+        <BookmarkPopup dua={props.dua} onClose={() => setBookmark(false)} />
       </Rodal>
 
       {/* plan popup */}

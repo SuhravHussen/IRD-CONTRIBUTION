@@ -1,18 +1,17 @@
-import { createListenerMiddleware } from "@reduxjs/toolkit";
-import { addPlan, deleteDua, editPlan, initialState as plansInitialState, updateCompleted } from "../feature/MemorizeSlicer";
 import {
-  initialState as initialSettingsState,
+  setArabicFont,
+  setArabicFontSize,
+  setFontSize,
   setLanguage,
   setReference,
   setShowArabic,
   setTranslation,
   setTransliteration,
-  setFontSize,
-  setArabicFont,
-  setArabicFontSize,
-} from "../feature/SettingsSlicer";
+} from "../../../feature/SettingsSlicer";
+import { localStorageMiddleware } from "../listner";
 
-export const localStorageMiddleware = createListenerMiddleware();
+import { initialState } from "../../../feature/SettingsSlicer";
+
 localStorageMiddleware.startListening({
   actionCreator: setLanguage,
   effect: (action, api) => {
@@ -116,71 +115,12 @@ localStorageMiddleware.startListening({
   },
 });
 
-localStorageMiddleware.startListening({
-  actionCreator: addPlan,
-  effect: (action, api) => {
-    localStorage.setItem(
-      "plans",
-      JSON.stringify({
-        plans: api.getState().memorize.plans,
-      })
-    );
-  },
-});
-
-localStorageMiddleware.startListening({
-  actionCreator: editPlan,
-  effect: (action, api) => {
-    localStorage.setItem(
-      "plans",
-      JSON.stringify({
-        plans: api.getState().memorize.plans,
-      })
-    );
-  },
-});
-
-localStorageMiddleware.startListening({
-  actionCreator: updateCompleted,
-  effect: (action, api) => {
-    localStorage.setItem(
-      "plans",
-      JSON.stringify({
-        plans: api.getState().memorize.plans,
-      })
-    );
-  },
-});
-
-localStorageMiddleware.startListening({
-  actionCreator: deleteDua,
-  effect: (action, api) => {
-    localStorage.setItem(
-      "plans",
-      JSON.stringify({
-        plans: api.getState().memorize.plans,
-      })
-    );
-  },
-});
-
 // get settings state from local storage
 export const settingState = () => {
   const settings = localStorage.getItem("settings");
   if (settings) {
     return JSON.parse(settings);
   } else {
-    return initialSettingsState;
-  }
-};
-
-// get plans state from local storage
-
-export const plansState = () => {
-  const plans = JSON.parse(localStorage.getItem("plans"));
-  if (plans && plans?.plans) {
-    return plans;
-  } else {
-    return null;
+    return initialState;
   }
 };

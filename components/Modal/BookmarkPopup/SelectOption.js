@@ -10,7 +10,7 @@ export default function SelectOption({ title, selected, setSelected, plans }) {
           <Listbox value={selected} onChange={(e) => setSelected(e)}>
             <div className="relative">
               <Listbox.Button className="relative w-full cursor-default bg-red-100 text-left focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm focus:outline-none focus:ring-1 focus:ring- px-6 py-[1.125rem] border border-solid   dark:border-none dark:focus:ring-1 dark:focus:ring-">
-                <span className="block truncate">{selected ? selected.name : "Choose from your plans"}</span>
+                <span className="block truncate">{selected ? selected.name : "Choose from your options"}</span>
                 <img className="absolute top-6 right-6" src="/assets/others/dropdown.svg" alt="" />
               </Listbox.Button>
               <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addPlan, updateFromLocalStorage } from "../../dataStore/feature/MemorizeSlicer";
+import { updateBookmarkFromLocalStorage } from "../../dataStore/feature/BookmarkSlicer";
+import { updateFromLocalStorage } from "../../dataStore/feature/MemorizeSlicer";
 import {
   setArabicFont,
   setArabicFontSize,
@@ -11,16 +12,18 @@ import {
   setTranslation,
   setTransliteration,
 } from "../../dataStore/feature/SettingsSlicer";
-import { plansState, settingState } from "../../dataStore/middlewares/localStorageMiddlware";
+import { bookmarksState } from "../../dataStore/middlewares/localsorageMiddleware/Bookmarks/bookmarksMiddleware";
+import { plansState } from "../../dataStore/middlewares/localsorageMiddleware/PlansMiddleware/PlansMiddleware";
+import { settingState } from "../../dataStore/middlewares/localsorageMiddleware/SettingsMiddleware/settingsMiddleware";
 
 export default function HydrateState() {
   const dispatch = useDispatch();
 
-  let dontUpdateLocalStorage = false;
   // hydrate saved state from local storage
   useEffect(() => {
     const state = settingState();
     const plans = plansState();
+    const bookmarks = bookmarksState();
 
     dispatch(setLanguage(state?.language));
     dispatch(setShowArabic(state?.showArabic));
@@ -30,7 +33,7 @@ export default function HydrateState() {
     dispatch(setFontSize(state?.translationFontSize));
     dispatch(setArabicFont(state?.arabicFont));
     dispatch(setArabicFontSize(state?.arabicFontSize));
-
+    dispatch(updateBookmarkFromLocalStorage(bookmarks));
     if (plans && plans.plans.length) {
       dispatch(
         updateFromLocalStorage({

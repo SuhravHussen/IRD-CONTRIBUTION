@@ -1,11 +1,14 @@
+import { useSelector } from "react-redux";
 import Card from "../../components/Bookmark/Card";
 import Master from "../../components/Layout/Master";
 
 const MyApp = () => {
+  const bookmarks = useSelector((state) => state.bookmarks);
+
   return (
     <Master title={"Bookmark Page"}>
       <div className="scrl h-[calc(100vh-100px)]">
-        <h5 className="font-medium text-lg text-[#373737] flex justify-start mb-4  ">Favourite List:</h5>
+        <h5 className="font-medium text-lg text-[#373737] flex justify-start mb-4  ">BOOKMARKS:</h5>
         <div
           className="grid mb-6 gap-x-6 gap-y-4 
         xs:gap-y-3 xs:pb-8
@@ -15,23 +18,7 @@ const MyApp = () => {
         xl:grid-cols-3 xl:pb-7
         2xl:grid-cols-3 2xl:pb-8
         3xl:grid-cols-3 3xl:pb-8">
-          <Card path={"/bookmark/list/"} totalDuas="3" folder="/assets/others/folder1.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder2.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder1.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder1.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder1.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder1.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder1.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder1.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder1.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder2.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder1.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder1.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder1.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder1.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder1.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder1.svg" />
-          <Card totalDuas="3" folder="/assets/others/folder1.svg" />
+          {bookmarks && bookmarks.map((bookmark) => <Card key={bookmark.id} bookmark={bookmark} />)}
         </div>
       </div>
     </Master>
