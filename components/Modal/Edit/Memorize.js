@@ -5,16 +5,14 @@ import CreateNew from "../PlanPopup/CreateNew";
 import DaysNumberInput from "../PlanPopup/DayNumberInput";
 import PopupBtn from "../PopupBtn";
 import EditPopup from "./EditPopup";
-import FolderName from "./FolderName";
 
 function Memorize({ onClose, plan }) {
   const [planName, setPlanName] = useState("");
   const [days, setDays] = useState(0);
   const [error, setError] = React.useState("");
   const dispatch = useDispatch();
-  const { plans } = useSelector((state) => state.memorize);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     setError("");
     if (planName || days) {
       dispatch(
@@ -27,6 +25,7 @@ function Memorize({ onClose, plan }) {
           },
         })
       );
+      onClose();
     } else {
       setError("Please select change name or days or click cancel");
     }
@@ -35,7 +34,7 @@ function Memorize({ onClose, plan }) {
   return (
     <EditPopup>
       {/* <FolderName /> */}
-      <CreateNew title="New Name" setPlanName={setPlanName} />
+      <CreateNew title="New Plan Name" setPlanName={setPlanName} />
       <DaysNumberInput setDays={setDays} />
       {error && <span className="text-red-500 text-sm">{error}</span>}
       <PopupBtn handleSubmit={handleSubmit} onClose={onClose} />

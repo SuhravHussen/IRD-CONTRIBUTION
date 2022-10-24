@@ -13,7 +13,17 @@ const DuaBottomBar = (props) => {
   const [shareShow, setShareShow] = useState(false);
   const [reportShow, setReportShow] = useState(false);
   const { theme } = useTheme();
+  const [showCopied, setShowCopied] = useState(false);
 
+  const handleCopy = () => {
+    setShowCopied(true);
+    setTimeout(() => {
+      setShowCopied(false);
+    }, 1000);
+    props.copyElement.current.select();
+    props.copyElement.current.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(props.copyText);
+  };
   return (
     <div className="">
       <div className="w-full h-[1px] mt-5 bg-[#E2E2E2] dark: dark:hidden"></div>
@@ -25,8 +35,18 @@ const DuaBottomBar = (props) => {
           </audio>
         )}
 
-        <div className="flex flex-row py-6 gap-x-8 xs:gap-x-4">
-          {theme === "dark" ? <img src="/assets/others/dark/copy.svg" alt="" /> : <img src="/assets/others/copy.svg" alt="" />}
+        <div className="flex flex-row py-6 gap-x-8 xs:gap-x-4 relative">
+          {showCopied && (
+            <div className="absolute  bg-stone-800 rounded-md p-2 bottom-16 -left-16 animate-bounce transition duration-1000 ease-in-out cursor-pointer">
+              <p className="text-white">Copied</p>
+            </div>
+          )}
+
+          {theme === "dark" ? (
+            <img onClick={handleCopy} src="/assets/others/dark/copy.svg" alt="" />
+          ) : (
+            <img onClick={handleCopy} src="/assets/others/copy.svg" alt="" />
+          )}
           <button
             type="button"
             onClick={() => setBookmark(true)}
@@ -60,6 +80,7 @@ const DuaBottomBar = (props) => {
           </button>
         </div>
       </div>
+      {/* bookmark popup */}
       <Rodal
         showCloseButton={false}
         width={500}

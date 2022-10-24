@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import DuaBottomBar from "./DuaBottomBar";
 import DuaTopbar from "./DuaTopbar";
@@ -17,8 +17,12 @@ const DuaCard = ({ dua }) => {
 
   const body = language === "en" ? "top_en" : "top_bn";
 
+  const copyText = `${dua?.dua_arabic ?? ""} ${dua?.translation_bn ?? ""}  ${dua?.refference_bn ?? ""}`;
+  const copyElement = useRef(null);
+
   return (
     <div id={`${dua[0].dua_id}`} className="bg-red-100 rounded-2lg my-5 dark:bg-[#223449]">
+      <input ref={copyElement} type="text" style={{ display: "none" }} value={copyText} />
       <div className="p-6">
         <DuaTopbar lang={language} duaName={language === "en" ? dua[0].dua_name_en : dua[0].dua_name_bn} duaId={dua[0].dua_id} />
         <div className={`flex flex-col justify-start items-start  ${animation && "animate-fade-in-up"}`}>
@@ -84,7 +88,7 @@ const DuaCard = ({ dua }) => {
           )}
         </div>
       </div>
-      <DuaBottomBar dua={dua[0] ? dua[0] : dua} audio={dua[0].audio} />
+      <DuaBottomBar dua={dua[0] ? dua[0] : dua} audio={dua[0].audio} copyText={copyText} copyElement={copyElement} />
     </div>
   );
 };

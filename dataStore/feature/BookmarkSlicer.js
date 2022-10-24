@@ -17,8 +17,8 @@ export const bookMarkSlicer = createSlice({
       state[index] = action.payload;
     },
     deleteBookmark: (state, action) => {
-      const index = state.findIndex((item) => item.id === action.payload.id);
-      if (index > -1 && index <= state.length) state.splice(index, 1);
+      const index = state.findIndex((item) => item.id === action.payload.bookmarkId);
+      state[index].duas = state[index].duas.filter((dua) => dua.id !== action.payload.duaId);
     },
     updateBookmarkFromLocalStorage: (state, action) => {
       if (action.payload) return action.payload;

@@ -5,6 +5,8 @@ import Rodal from "rodal";
 import "rodal/lib/rodal.css";
 import DeletePopup from "../../Modal/DeletePopup/DeletePopup";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { deleteDua } from "../../../dataStore/feature/MemorizeSlicer";
 const Botombar = ({ copyText, copyElement, dua, planId }) => {
   const [modalShow, setModalShow] = useState(false);
   const { theme } = useTheme();
@@ -40,8 +42,13 @@ const Botombar = ({ copyText, copyElement, dua, planId }) => {
     copyElement.current.select();
     copyElement.current.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(copyText);
-    console.log("copied", copyElement.current.value);
   };
+
+  const dispatch = useDispatch();
+  const handleDelete = () => {
+    dispatch(deleteDua({ duaId: dua.id, planId }));
+  };
+
   return (
     <div className="">
       <div className="w-full h-[1px] bg-[#E2E2E2] dark:hidden"></div>
@@ -97,7 +104,7 @@ const Botombar = ({ copyText, copyElement, dua, planId }) => {
           customStyles={{ backgroundColor: "transparent", boxShadow: "none" }}
           visible={modalShow}
           onClose={() => setModalShow(false)}>
-          <DeletePopup planId={planId} dua={dua} onClose={() => setModalShow(false)} />
+          <DeletePopup title="Do you want to delete this dua from your plan?" onClick={handleDelete} onClose={() => setModalShow(false)} />
         </Rodal>
       </div>
     </div>

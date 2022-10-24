@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function CreateNewFolder({ setFolderName, setSelected }) {
+function CreateNewFolder({ setFolderName, setSelected, title = "Or", value }) {
   const [error, setError] = useState(false);
 
   const handleChange = (e) => {
@@ -17,7 +17,7 @@ function CreateNewFolder({ setFolderName, setSelected }) {
 
   return (
     <label className="block">
-      <p className="text-left font-inter font-medium text-base leading-5 mb-2">Or,</p>
+      <p className="text-left font-inter font-medium text-base leading-5 mb-2">{title && title}</p>
       <div className="mb-5">
         <input
           className="w-full h-12 px-4 py-4 border border-solid   placeholder:font-inter placeholder:font-normal placeholder:text-sm placeholder:text-title placeholder:opacity-[.35] focus:outline-none focus:ring-1 focus:ring-  dark:border-none dark:focus:ring-1 dark:focus:ring- dark:placeholder:text-[#dedede]"
@@ -25,6 +25,7 @@ function CreateNewFolder({ setFolderName, setSelected }) {
           name="folder"
           placeholder="Create New Bookmark Folder"
           onChange={handleChange}
+          value={value}
         />
         {error && <span className="text-red-500 text-sm">Please enter a valid folder name</span>}
       </div>

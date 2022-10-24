@@ -23,6 +23,7 @@ function BookmarkPopupContent({ onClose, dua }) {
           duas: [...selected.duas, dua],
         })
       );
+      onClose();
     } else if (newBookmarkName && color) {
       dispatch(
         addBookmark({
@@ -31,6 +32,7 @@ function BookmarkPopupContent({ onClose, dua }) {
           duas: [dua],
         })
       );
+      onClose();
     } else {
       setError("Please select a folder or create a new one");
     }
@@ -41,7 +43,7 @@ function BookmarkPopupContent({ onClose, dua }) {
       <div className="mt-4 mb-4 flex justify-center items-start">
         <div style={{ width: "87%" }}>
           <SelectOption plans={bookmarks} selected={selected} setSelected={setSelected} title={"Folder Name"} />
-          <CreateNewFolder setFolderName={setNewBookmarkName} setSelected={setSelected} />
+          <CreateNewFolder value={newBookmarkName} setFolderName={setNewBookmarkName} setSelected={setSelected} />
           <FolderColor color={color} setColor={setColor} />
           <PopupBtn handleSubmit={handleSubmit} onClose={onClose} />
         </div>

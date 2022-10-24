@@ -16,8 +16,9 @@ const Card = ({ details }) => {
 
   const diff = date2.diff(today, ["years", "months", "days", "hours"]);
 
-  const completed = details.dua.filter((item) => item.completed === true).length;
-  const percentage = Math.round((completed / details.dua.length) * 100);
+  const completed = details.dua.filter((item) => item.completed === true).length || 0;
+  const percentage = Math.round((completed / details.dua.length || 0) * 100);
+
   return (
     <div className="bg-red-100 w-full max-h-max  p-5 border-[.5px] border-solid border-devider dark:bg-[#223449] dark:border-none animate-fade-in-up">
       <div className=" flex justify-between items-center">
@@ -31,7 +32,7 @@ const Card = ({ details }) => {
           {theme === "dark" ? <img src="/assets/others/dark/threeDot.svg" alt="" /> : <img src="/assets/others/threeDot.svg" alt="" />}
         </button>
       </div>
-      <Link href="/memorize/details">
+      <Link href={`/memorize/details/${details.id}`}>
         <div className="cursor-pointer">
           <div>
             <p
@@ -39,10 +40,8 @@ const Card = ({ details }) => {
                xs:text-sm 
                xs:leading-6 
                sm:text-sm
-               lg:text-base mt-3
-               
+               lg:text-base mt-3  
                ">
-              {" "}
               Total Selected Duas: {details.dua.length}
             </p>
             <p
@@ -53,7 +52,6 @@ const Card = ({ details }) => {
               lg:text-base
               
               ">
-              {" "}
               Days Remaining: {diff.days}
             </p>
             <p
@@ -64,7 +62,6 @@ const Card = ({ details }) => {
               lg:text-base mb-4
               
               ">
-              {" "}
               Completed Dua: {completed}
             </p>
           </div>

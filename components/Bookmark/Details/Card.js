@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useSelector } from "react-redux";
 import SingleBotombar from "./Botombar";
 import SingleTopBar from "./TopBar";
@@ -11,9 +12,11 @@ const Card = ({ dua }) => {
   const translation = language === "en" ? "translation_en" : "translation_bn";
   const transliteration = language === "en" ? "transliteration_en" : "transliteration_bn";
   const reference = language === "en" ? "refference_en" : "refference_bn";
-
+  const copyText = `${dua?.dua_arabic ?? ""} ${dua?.[transliteration] ?? ""}  ${dua?.[reference] ?? ""}`;
+  const copyElement = useRef(null);
   return (
     <div className="bg-red-100 rounded-2lg mb-5 dark:bg-[#223449]">
+      <input ref={copyElement} type="text" style={{ display: "none" }} value={copyText} />
       <div className="p-6">
         <SingleTopBar title={dua[duaName]} />
         <div className="flex flex-col justify-start items-start">
@@ -28,7 +31,7 @@ const Card = ({ dua }) => {
           <p className="mt-1 font-inter font-normal text-base text-title ">{dua[reference] && dua[reference]}</p>
         </div>
       </div>
-      <SingleBotombar />
+      <SingleBotombar duaID={dua.id} copyText={copyText} copyElement={copyElement} />
     </div>
   );
 };
