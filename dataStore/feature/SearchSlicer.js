@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   loading: false,
-  data: undefined,
+  data: [],
+  error: false,
 };
 
 export const searchSlicer = createSlice({
@@ -13,11 +14,14 @@ export const searchSlicer = createSlice({
       state.loading = !state.loading;
     },
     setData: (state, action) => {
-        state.data = action.payload;
+      state.data = action.payload;
+    },
+    setError: (state, action) => {
+      state.error = action.payload;
     },
   },
 });
 
-export const { setLoading, setData } = searchSlicer.actions;
+export const { setLoading, setData, setError } = searchSlicer.actions;
 
 export default searchSlicer.reducer;

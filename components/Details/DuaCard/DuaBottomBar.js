@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 import React, { useState } from "react";
 import Rodal from "rodal";
 import "rodal/lib/rodal.css";
-
+import copyHandler from "../../../helpers/copyText";
 const DuaBottomBar = (props) => {
   const [bookmarkShow, setBookmark] = useState(false);
   const [planShow, setPlanShow] = useState(false);
@@ -16,14 +16,14 @@ const DuaBottomBar = (props) => {
   const [showCopied, setShowCopied] = useState(false);
 
   const handleCopy = () => {
-    setShowCopied(true);
-    setTimeout(() => {
-      setShowCopied(false);
-    }, 1000);
-    props.copyElement.current.select();
-    props.copyElement.current.setSelectionRange(0, 99999);
-    navigator.clipboard.writeText(props.copyText);
+    copyHandler(props.copyElement, props.copyText, () => {
+      setShowCopied(true);
+      setTimeout(() => {
+        setShowCopied(false);
+      }, 1000);
+    });
   };
+
   return (
     <div className="">
       <div className="w-full h-[1px] mt-5 bg-[#E2E2E2] dark: dark:hidden"></div>

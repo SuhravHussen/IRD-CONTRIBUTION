@@ -60,7 +60,6 @@ const Card = ({ details }) => {
               xs:leading-6 
               sm:text-sm
               lg:text-base mb-4
-              
               ">
               Completed Dua: {completed}
             </p>

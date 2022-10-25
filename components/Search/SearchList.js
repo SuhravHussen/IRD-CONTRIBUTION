@@ -1,13 +1,10 @@
 import DuaCard from "./DuaCard";
-import { useSelector } from "react-redux";
-import DetailsCard from "../Memorize/Details/DetailsCard";
 
-const SearchList = () => {
-  const searchDua = useSelector((state) => state.duaSearch.data);
+const SearchList = ({ duas, query }) => {
   return (
-    <div className="flex flex-col h-full xs:pb-40">
-      {searchDua?.result?.map((item) => (
-        <DuaCard dua={item} />
+    <div className="flex flex-col">
+      {duas.map((item, i) => (
+        <DuaCard key={item.id} dua={item} query={query} />
       ))}
     </div>
   );

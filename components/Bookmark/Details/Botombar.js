@@ -1,4 +1,5 @@
 import { useTheme } from "next-themes";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -6,8 +7,8 @@ import Rodal from "rodal";
 import "rodal/lib/rodal.css";
 import { deleteBookmark } from "../../../dataStore/feature/BookmarkSlicer";
 import DeletePopup from "../../Modal/DeletePopup/DeletePopup";
-
-const SingleBotombar = ({ duaID, copyText, copyElement }) => {
+import copyHandler from "../../../helpers/copyText";
+const SingleBotombar = ({ dua, copyText, copyElement }) => {
   const [modalShow, setModalShow] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
   const { theme } = useTheme();
@@ -17,20 +18,19 @@ const SingleBotombar = ({ duaID, copyText, copyElement }) => {
   const handleDelete = () => {
     dispatch(
       deleteBookmark({
-        duaId: duaID,
+        duaId: dua.id,
         bookmarkId: id,
       })
     );
   };
 
   const handleCopy = () => {
-    setShowCopied(true);
-    setTimeout(() => {
-      setShowCopied(false);
-    }, 1000);
-    copyElement.current.select();
-    copyElement.current.setSelectionRange(0, 99999);
-    navigator.clipboard.writeText(copyText);
+    copyHandler(copyElement, copyText, () => {
+      setShowCopied(true);
+      setTimeout(() => {
+        setShowCopied(false);
+      }, 1000);
+    });
   };
 
   return (
@@ -57,7 +57,9 @@ const SingleBotombar = ({ duaID, copyText, copyElement }) => {
             className="text-black font-medium  leading-tight uppercase  transition duration-150 ease-in-out   text-lg">
             {theme === "dark" ? <img src="/assets/others/dark/deleteBtn.svg" alt="" /> : <img src="/assets/others/deleteBtn.svg" alt="" />}
           </button>
-          {theme === "dark" ? <img src="/assets/others/dark/direct.svg" alt="" /> : <img src="/assets/others/direct.svg" alt="" />}
+          <Link href={`/dua/${dua.cat_id}/${dua.subcat_id}#${dua.id}`}>
+            {theme === "dark" ? <img src="/assets/others/dark/direct.svg" alt="" /> : <img src="/assets/others/direct.svg" alt="" />}
+          </Link>
           {theme === "dark" ? <img src="/assets/others/dark/share.svg" alt="" /> : <img src="/assets/others/share.svg" alt="" />}
         </div>
       </div>

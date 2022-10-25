@@ -31,7 +31,7 @@ const Card = ({ dua }) => {
           <p className="mt-1 font-inter font-normal text-base text-title ">{dua[reference] && dua[reference]}</p>
         </div>
       </div>
-      <SingleBotombar duaID={dua.id} copyText={copyText} copyElement={copyElement} />
+      <SingleBotombar copyText={copyText} copyElement={copyElement} dua={dua} />
     </div>
   );
 };

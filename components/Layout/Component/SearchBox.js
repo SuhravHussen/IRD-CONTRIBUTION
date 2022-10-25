@@ -15,17 +15,14 @@ import { useRouter } from "next/router";
 const SearchBox = ({ hint }) => {
   const router = useRouter();
   const [modalShow, setModalShow] = useState(false);
-  const [showDropdown, setShowDroshown] = useState(false);
+  // const [showDropdown, setShowDroshown] = useState(false);
   const { theme } = useTheme();
   const [searchText, setSearchText] = useState({ text: "" });
-  const data = useSelector((state) => state.duaSearch.data);
 
-  // useState
-  const [isEnter, setEnter] = useState("");
-
-  useEffect(() => {
-    // SearchApi.duaSearch(searchText, "en");
-  }, [searchText, isEnter, data]);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    router.push(`/search?query=${searchText}`);
+  };
 
   return (
     <>
@@ -37,7 +34,8 @@ const SearchBox = ({ hint }) => {
                 {theme === "dark" ? <SearchIcon height="22" color="stroke-[#96a2b4]" /> : <SearchIcon height="22" color="stroke-mute-grey" />}
               </span>
               <input
-                onKeyDown={(e) => setEnter(e.key === "Enter" ? setSearchText({ text: e.target.value }, router.push("/search")) : "")}
+                onChange={(e) => setSearchText(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch(e)}
                 className="placeholder:text-mute-grey dark:placeholder:text-[#96a2b4] block placeholder:font-inter placeholder:text-sm bg-red-100 w-full  py-3 pl-12 pr-3 shadow-sm focus:outline-none focus:border- focus:ring- focus:ring-1 sm:text-sm dark:bg-[#223449] dark:placeholder:opacity-[.6]"
                 placeholder={hint ?? "Search by Dua Name"}
                 type="text"
@@ -60,6 +58,7 @@ const SearchBox = ({ hint }) => {
                 className="bg-gray-100  dark:hover:text-gray-400 dark:text-gray-500 cursor-pointer hover:bg-gray-200 hover:text-gray-500 text-gray-400 px-4 py-2  absolute right-1 top-1"
                 type="submit"
                 value="Search"
+                onClick={handleSearch}
               />
             </div>
           </div>

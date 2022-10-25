@@ -7,6 +7,8 @@ import DeletePopup from "../../Modal/DeletePopup/DeletePopup";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { deleteDua } from "../../../dataStore/feature/MemorizeSlicer";
+import copyHandler from "../../../helpers/copyText";
+
 const Botombar = ({ copyText, copyElement, dua, planId }) => {
   const [modalShow, setModalShow] = useState(false);
   const { theme } = useTheme();
@@ -35,13 +37,12 @@ const Botombar = ({ copyText, copyElement, dua, planId }) => {
   };
 
   const handleCopy = () => {
-    setShowCopied(true);
-    setTimeout(() => {
-      setShowCopied(false);
-    }, 1000);
-    copyElement.current.select();
-    copyElement.current.setSelectionRange(0, 99999);
-    navigator.clipboard.writeText(copyText);
+    copyHandler(copyElement, copyText, () => {
+      setShowCopied(true);
+      setTimeout(() => {
+        setShowCopied(false);
+      }, 1000);
+    });
   };
 
   const dispatch = useDispatch();
