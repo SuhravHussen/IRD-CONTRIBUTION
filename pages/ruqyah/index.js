@@ -1,8 +1,13 @@
 import { useEffect } from "react";
 import RuqyahCatApi from "../../dataStore/api/RuqyahCatApi";
 import Master from "../../components/Layout/Master";
-import Slider from "../../components/Ruqyah/Slider/Slider";
+
 import Category from "../../components/Ruqyah/Category/Category";
+import dynamic from "next/dynamic";
+const Slider = dynamic(() => import("../../components/Ruqyah/Slider/Slider"), {
+  ssr: false,
+});
+
 const MyApp = () => {
   useEffect(() => {
     RuqyahCatApi.getRuqyahCategory("en");

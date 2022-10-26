@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const webpack = require("webpack");
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   webpack: (config, { dev }) => {
     config.plugins.push(
       new webpack.ProvidePlugin({

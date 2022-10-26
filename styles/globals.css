@@ -252,3 +252,64 @@ input[type="range"]::-webkit-slider-thumb {
     font-size: 1rem;
   }
 }
+
+/* Media player */
+
+.rhap_container {
+  box-shadow: none !important;
+  background: none !important;
+}
+.rhap_progress-bar-show-download {
+  background-color: rgb(180 180 182) !important;
+}
+.rhap_progress-filled {
+  background-color: #5fff50 !important;
+}
+.rhap_progress-indicator {
+  background-color: #5fff50 !important;
+}
+.rhap_time {
+  color: #eeeeee !important;
+}
+.rhap_container svg {
+  color: #eeeeee !important;
+}
+.rhap_volume-bar {
+  background-color: rgb(180 180 182) !important;
+}
+.rhap_volume-filled {
+  background-color: #5fff50 !important;
+}
+.rhap_volume-indicator {
+  background-color: #5fff50 !important;
+}
+
+/* sound bar */
+#bars {
+  position: relative;
+  height: 40%;
+  width: 90%;
+}
+
+.bar {
+  background: #66ff9a;
+  bottom: 1px;
+  height: 4px;
+  position: absolute;
+  width: 5px;
+}
+
+.animation-active {
+  animation: sound 0ms -800ms linear infinite alternate;
+}
+
+@keyframes sound {
+  0% {
+    opacity: 0.35;
+    height: 3px;
+  }
+  100% {
+    opacity: 1;
+    height: 50px;
+  }
+}
