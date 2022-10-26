@@ -35,12 +35,15 @@ function PopupCont({ onClose, dua, type }) {
 
       onClose();
     } else if (!selected && planName && days && dua) {
+      const deadline = new Date();
+      deadline.setDate(deadline.getDate() + Number(days));
+      deadline.setHours(0, 0, 0, 0);
       dispatch(
         addPlan({
           new: true,
           plan: {
             name: planName,
-            days: days,
+            days: deadline,
             type: type || "dua",
             dua: [
               {

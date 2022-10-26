@@ -5,17 +5,14 @@ import React, { useState } from "react";
 import Rodal from "rodal";
 import "rodal/lib/rodal.css";
 import { DateTime } from "luxon";
+import { useCountDown } from "../../helpers/useDateCountdown";
 
 const Card = ({ details }) => {
   const [modalShow, setModalShow] = useState(false);
+
+  const [days, hours, minutes, seconds] = useCountDown(details.days);
+
   const { theme } = useTheme();
-
-  const today = DateTime.fromISO(new Date().toISOString());
-
-  const date2 = DateTime.local().plus({ days: details.days });
-
-  const diff = date2.diff(today, ["years", "months", "days", "hours"]);
-
   const completed = details.dua.filter((item) => item.completed === true).length || 0;
   const percentage = Math.round((completed / details.dua.length || 0) * 100);
 
@@ -52,7 +49,7 @@ const Card = ({ details }) => {
               lg:text-base
               
               ">
-              Days Remaining: {diff.days}
+              Days Remaining: {days} Days {hours} Hours {minutes} Minutes {seconds} Seconds
             </p>
             <p
               className="flex text-title opacity-80 font-inter font-normal text-sm
