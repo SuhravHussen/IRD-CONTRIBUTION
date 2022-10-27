@@ -2,23 +2,26 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   loading: false,
-  data: undefined,
+  data: [],
+  error: false,
 };
 
 export const RuqyahCatSlicer = createSlice({
   name: "ruqyahCatController",
   initialState,
   reducers: {
-    setLoading: (state) => {
-      state.loading = !state.loading;
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     },
     setData: (state, action) => {
       state.data = action.payload;
     },
-   
+    setError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setLoading, setData } = RuqyahCatSlicer.actions;
+export const { setLoading, setData, setError } = RuqyahCatSlicer.actions;
 
 export default RuqyahCatSlicer.reducer;

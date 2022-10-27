@@ -1,20 +1,25 @@
-import PUrls from "./urls"
-import axios from 'axios';
+import PUrls from "./urls";
+import axios from "axios";
 
 import { store } from "../store";
-import { setLoading, setData, setRuqyahSubCatId } from "../feature/RuqyahSubCatSlicer";
+import { setLoading, setData } from "../feature/RuqyahSubCatSlicer";
+import { setError } from "../feature/RuqyahCatSlicer";
 
 export default class RuqyahSubCatApi {
-    static getRuqyahSubCat = async (lang) => {
-        const data = await axios.get(PUrls.ruqyahSubCat+lang,)
-        try {
-            store.dispatch(setLoading())
-            const res = await axios.get(PUrls.ruqyahSubCat+lang,)
-            store.dispatch(setData(res.data))
-            store.dispatch(setRuqyahSubCatId(res.data?.result?.map((item) => item.subcat_id)))
-        } catch (_) {
+  static getRuqyahSubCat = async (lang) => {
+    try {
+      store.dispatch(setError(false));
+      store.dispatch(setLoading(true));
+      const res = await axios.get(PUrls.ruqyahSubCat + lang);
 
-        } 
-
+      if (res.data.error) {
+        store.dispatch(setError(true));
+      } else {
+        store.dispatch(setData(res.data.result));
+      }
+      store.dispatch(setLoading(false));
+    } catch (_) {
+      store.dispatch(setError(true));
     }
+  };
 }

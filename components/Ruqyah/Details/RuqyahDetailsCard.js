@@ -1,29 +1,28 @@
-import DuaTopbar from "../../Details/DuaCard/DuaTopbar";
+import { useRouter } from "next/router";
+import { useEffect, useRef } from "react";
 import DuaBottomBar from "../../Details/DuaCard/DuaBottomBar";
 
-const RuqyahDetailsCard = () => {
+const RuqyahDetailsCard = ({ details }) => {
+  const router = useRouter();
+  const ref = useRef(null);
+
+  // scroll auto to selected dua from already opened another category's sub category
+  useEffect(() => {
+    console.log("ref.current", ref.current);
+    if (ref.current && router.query.ruqya && router.query.ruqya === details.id.toString()) {
+      console.log("getting called");
+      ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [router.query.ruqya, details.id]);
+
   return (
-    <div className="bg-red-100 rounded-2lg mb-5 dark:bg-[#223449]">
+    <div ref={ref} id={details?.id} className="bg-red-100 rounded-2lg mb-5 dark:bg-[#223449]">
       <div className="p-6">
-        <DuaTopbar />
+        <h2 className="font-semibold text-xl p-3">{details?.topic_name}</h2>
+        <hr />
         <div className="flex flex-col justify-start items-start">
           {/* Body */}
-          <p className=" my-5 text-title text-justify font-inter font-normal">
-            All human beings depend on Allah for their welfare and prevention of evil in various matters of their religion and world. Allah says
-            (interpretation of the meaning): O mankind, you are those in need of Allah, while Allah is the Free of need, the Praiseworthy.
-          </p>
-          {/* Arabic */}
-          <p className=" my-5 text-title text-right leading-loose font-kgfq text-3xl">
-            لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيْكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، اَللَّهُمَّ لَا
-            مَانِعَ لِمَا أَعْطَيْتَ وَلَا مُعْطِيَ لِمَا مَنَعْتَ وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ اَللَّهُمَّ لَا مَانِعَ لِمَا
-            أَعْطَيْتَ وَلَا مُعْطِيَ لِمَا مَنَعْتَ وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ
-          </p>
-          <p className=" my-5 text-title text-justify font-inter font-normal">
-            All human beings depend on Allah for their welfare and prevention of evil in various matters of their religion and world. Allah says
-            (interpretation of the meaning): O mankind, you are those in need of Allah,
-          </p>
-          <p className="mt-2 ">Reference</p>
-          <p className="mt-1 text-sm text-title ">Surah Al-Fatir 35:15</p>
+          <p className=" my-5 text-title text-justify font-inter font-normal p-3" dangerouslySetInnerHTML={{ __html: details?.ruqya_details }}></p>
         </div>
       </div>
       <DuaBottomBar />

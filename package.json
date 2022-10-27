@@ -19,6 +19,7 @@
     "react-accessible-accordion": "^5.0.0",
     "react-audio-spectrum2": "^0.1.8",
     "react-bootstrap": "^2.5.0",
+    "react-collapse": "^5.1.1",
     "react-dom": "^18.1.0",
     "react-h5-audio-player": "^3.8.6",
     "react-html-parser": "^2.0.2",

@@ -4,13 +4,13 @@ import { useTheme } from "next-themes";
 import React, { useState } from "react";
 import Rodal from "rodal";
 import "rodal/lib/rodal.css";
-import { DateTime } from "luxon";
+
 import { useCountDown } from "../../helpers/useDateCountdown";
 
 const Card = ({ details }) => {
   const [modalShow, setModalShow] = useState(false);
-
-  const [days, hours, minutes, seconds] = useCountDown(details.days);
+  const deadline = new Date(details.days) ?? new Date();
+  const [days, hours, minutes, seconds] = useCountDown(deadline);
 
   const { theme } = useTheme();
   const completed = details.dua.filter((item) => item.completed === true).length || 0;

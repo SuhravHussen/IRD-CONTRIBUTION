@@ -43,7 +43,7 @@ const Slider = () => {
                 sm:pr-10">
               <AudioPlayer
                 // ref={ref}
-                customAdditionalControls={[]}
+
                 showSkipControls
                 showJumpControls={false}
                 showFilledVolume
