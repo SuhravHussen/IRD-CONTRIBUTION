@@ -1,5 +1,8 @@
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addLastRead } from "../../../dataStore/feature/LastReadSlicer";
+import useIsInViewport from "../../../helpers/useInviewport";
 import DuaBottomBar from "./DuaBottomBar";
 import DuaTopbar from "./DuaTopbar";
 
@@ -8,20 +11,39 @@ const DuaCard = ({ dua }) => {
   const { showArabic, showTranslation, showReference, showTransliteration, language, translationFontSize, arabicFont, arabicFontSize } = useSelector(
     (state) => state.settings
   );
-
+  const duaId = useRouter().query.dua;
   useEffect(() => {
     return () => {
       setAnimation(true);
     };
   }, [dua[0].dua_id, showArabic, showTranslation, showReference, showTransliteration, language, translationFontSize, arabicFont, arabicFontSize]);
 
+  useEffect(() => {
+    if (duaId && duaId === dua[0].dua_id.toString()) {
+      document.getElementById(duaId).scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [duaId, dua]);
+
   const body = language === "en" ? "top_en" : "top_bn";
 
   const copyText = `${dua?.dua_arabic ?? ""} ${dua?.translation_bn ?? ""}  ${dua?.refference_bn ?? ""}`;
   const copyElement = useRef(null);
 
+  const ref = useRef(null);
+  const inViewPort = useIsInViewport(ref);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  useEffect(() => {
+    if (inViewPort) {
+      if (router.pathname === "/dua/[cat_id]") {
+        console.log(`/dua/${dua[0].cat_id}?dua=${dua[0].dua_id}`);
+        dispatch(addLastRead(`/dua/${dua[0].cat_id}?dua=${dua[0].dua_id}`));
+      }
+    }
+  }, [inViewPort]);
+
   return (
-    <div id={`${dua[0].dua_id}`} className="bg-red-100 rounded-2lg my-5 dark:bg-[#223449]">
+    <div ref={ref} id={`${dua[0].dua_id}`} className="bg-red-100 rounded-2lg my-5 dark:bg-[#223449]">
       <input ref={copyElement} type="text" style={{ display: "none" }} value={copyText} />
       <div className="p-6">
         <DuaTopbar lang={language} duaName={language === "en" ? dua[0].dua_name_en : dua[0].dua_name_bn} duaId={dua[0].dua_id} />

@@ -1,12 +1,13 @@
 import SearchIcon from "../../assets/searchIcon";
 import CatList from "./CategoryList/CatList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBox from "../Widget/SearchBox";
 
 import { useSelector } from "react-redux";
 
 const CatContainer = ({ ns, title, hidden = "xs:hidden sm:hidden md:hidden lg:hidden" }) => {
   const [search, setSearch] = useState(false);
+  const [categories, setCategories] = useState([]);
   const data = useSelector((state) => state.duaCat.data);
   const language = useSelector((state) => state.settings.language);
 
@@ -14,6 +15,10 @@ const CatContainer = ({ ns, title, hidden = "xs:hidden sm:hidden md:hidden lg:hi
     e.preventDefault();
     setSearch(!search);
   };
+
+  useEffect(() => {
+    setCategories(data?.result);
+  }, [data]);
 
   return (
     <div className={`h-[85.5vh] overflow-hidden bg-red-100 rounded-2lg  dark:bg-[#223449] ${hidden} xs:h-[100vh] sm:h-[50vh]`}>
@@ -27,14 +32,13 @@ const CatContainer = ({ ns, title, hidden = "xs:hidden sm:hidden md:hidden lg:hi
       <div className="mt-6 scrl h-[calc(100vh_-_200px)] pb-8 xs:h-[calc(100vh_-_40vh)] sm:h-[calc(100vh_-_40vh)]">
         {search && (
           <div className="mx-3 mt-5">
-            <SearchBox hint={`${"Search " + title}`} />
+            <SearchBox hint={`${"Search " + title}`} setCategories={setCategories} />
             <p className=" text-sm mt-4 text-start">Search Results:</p>
           </div>
         )}
-        {data &&
-          data?.result?.map((item) => (
+        {categories &&
+          categories.map((item) => (
             <CatList
-              isOpen={item.cat_id == 1 ? true : false}
               catId={item.cat_id}
               catName={language === "en" ? item.cat_name_en : item.cat_name_bn}
               subCat={language === "en" ? item.no_of_subcat : item.no_of_subcat.toLocaleString("bn")}

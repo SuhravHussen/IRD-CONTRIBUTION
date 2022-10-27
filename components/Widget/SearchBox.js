@@ -1,6 +1,9 @@
+import { useSelector } from "react-redux";
 import SearchIcon from "../../assets/searchIcon";
 
-const SearchBox = ({ hint, style }) => {
+const SearchBox = ({ hint, style, setCategories }) => {
+  const allCategories = useSelector((state) => state.duaCat.data);
+  const language = useSelector((state) => state.settings.language);
   return (
     <label className="relative block">
       <span className="absolute inset-y-0 left-0 flex items-center pl-4">
@@ -12,6 +15,12 @@ sm:text-sm  dark:border-none dark:placeholder:text-[#96a2b4]`}
         placeholder={hint}
         type="text"
         name="search"
+        onChange={(e) => {
+          const filteredCategories = allCategories?.result.filter((item) => {
+            return item[`cat_name_${language}`].toLowerCase().includes(e.target.value.toLowerCase());
+          });
+          setCategories(filteredCategories);
+        }}
       />
     </label>
   );

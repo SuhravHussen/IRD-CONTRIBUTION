@@ -34,7 +34,7 @@ const CatList = () => {
                 <Card
                   key={item?.id}
                   language={language}
-                  link={`/dua/${item.cat_id}/1`}
+                  link={`/dua/${item.cat_id}`}
                   catId={item.cat_id}
                   title={language === "en" ? item.cat_name_en : item.cat_name_bn}
                   subTitle={language === "en" ? item.no_of_subcat : item.no_of_subcat.toLocaleString("bn")}

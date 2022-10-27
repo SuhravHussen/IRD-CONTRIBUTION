@@ -18,6 +18,7 @@ import AllDuaSlicer from "./feature/AllDuaSlicer";
 import MemorizeSlicer from "./feature/MemorizeSlicer";
 import { localStorageMiddleware } from "./middlewares/localsorageMiddleware/listner";
 import BookmarkSlicer from "./feature/BookmarkSlicer";
+import LastReadSlicer from "./feature/LastReadSlicer";
 
 export const store = configureStore({
   reducer: {
@@ -38,6 +39,7 @@ export const store = configureStore({
     allDuas: AllDuaSlicer,
     memorize: MemorizeSlicer,
     bookmarks: BookmarkSlicer,
+    lastRead: LastReadSlicer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware.middleware),
 });

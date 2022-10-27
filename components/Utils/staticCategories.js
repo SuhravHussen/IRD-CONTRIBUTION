@@ -1,10 +1,6 @@
 export const categories = {
   bn: [
     {
-      title: "শেষ পড়া",
-      path: "/dua-audio",
-    },
-    {
       title: "ব্লগ",
       path: "/blog",
     },
@@ -18,10 +14,6 @@ export const categories = {
     },
   ],
   en: [
-    {
-      title: "Last Read",
-      path: "/dua-audio",
-    },
     {
       title: " Blog",
       path: "/blog",

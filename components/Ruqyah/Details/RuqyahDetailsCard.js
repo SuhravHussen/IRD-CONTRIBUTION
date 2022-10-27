@@ -6,9 +6,7 @@ const RuqyahDetailsCard = ({ details }) => {
   const router = useRouter();
   const ref = useRef(null);
 
-  // scroll auto to selected dua from already opened another category's sub category
   useEffect(() => {
-    console.log("ref.current", ref.current);
     if (ref.current && router.query.ruqya && router.query.ruqya === details.id.toString()) {
       console.log("getting called");
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
