@@ -8,7 +8,6 @@ const RuqyahDetailsCard = ({ details }) => {
 
   useEffect(() => {
     if (ref.current && router.query.ruqya && router.query.ruqya === details.id.toString()) {
-      console.log("getting called");
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [router.query.ruqya, details.id]);

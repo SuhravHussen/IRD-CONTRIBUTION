@@ -88,11 +88,11 @@ const Botombar = ({ copyText, copyElement, dua, planId }) => {
             <img onClick={() => setModalShow(true)} className="cursor-pointer" src="/assets/others/deleteBtn.svg" alt="" />
           )}
           {theme === "dark" ? (
-            <Link href={`/dua/${dua.cat_id}/${dua.subcat_id}#${dua.id}`}>
+            <Link href={`/dua/${dua.cat_id}?dua=${dua.id}`}>
               <img className="cursor-pointer" src="/assets/others/dark/direct.svg" alt="" />
             </Link>
           ) : (
-            <Link href={`/dua/${dua.cat_id}/${dua.subcat_id}#${dua.id}`}>
+            <Link href={`/dua/${dua.cat_id}?dua=${dua.id}`}>
               <img className="cursor-pointer" src="/assets/others/direct.svg" alt="" />
             </Link>
           )}

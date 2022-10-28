@@ -37,7 +37,11 @@ const MidCat = () => {
       2xl:grid-cols-3
       3xl:grid-cols-3
       ">
-        <MidCard path={lastRead} text={language === "en" ? "Last read" : "শেষ পড়া"} midCard={"xs:flex-col xs:gap-3 sm:flex-col sm:gap-3"} />
+        <MidCard
+          path={lastRead ? lastRead : "/"}
+          text={language === "en" ? "Last read" : "শেষ পড়া"}
+          midCard={"xs:flex-col xs:gap-3 sm:flex-col sm:gap-3"}
+        />
         {categories[language].map((cat) => (
           <MidCard key={cat.title} path={cat.path} text={cat.title} midCard={"xs:flex-col xs:gap-3 sm:flex-col sm:gap-3"} />
         ))}

@@ -38,7 +38,6 @@ export const subCatSlicer = createSlice({
       if (action.payload === "KGFQ") {
         state.arabicFont = "kgfq";
       } else if (action.payload === "Noor e Huda") {
-        console.log(action.payload);
         state.arabicFont = "noorehuda";
       } else if (action.payload === "Noor E Hedayet") {
         state.arabicFont = "noorehedayet";

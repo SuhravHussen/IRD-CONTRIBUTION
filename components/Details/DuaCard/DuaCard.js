@@ -36,7 +36,6 @@ const DuaCard = ({ dua }) => {
   useEffect(() => {
     if (inViewPort) {
       if (router.pathname === "/dua/[cat_id]") {
-        console.log(`/dua/${dua[0].cat_id}?dua=${dua[0].dua_id}`);
         dispatch(addLastRead(`/dua/${dua[0].cat_id}?dua=${dua[0].dua_id}`));
       }
     }

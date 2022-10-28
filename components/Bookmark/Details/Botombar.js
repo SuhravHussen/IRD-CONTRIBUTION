@@ -57,7 +57,7 @@ const SingleBotombar = ({ dua, copyText, copyElement }) => {
             className="text-black font-medium  leading-tight uppercase  transition duration-150 ease-in-out   text-lg">
             {theme === "dark" ? <img src="/assets/others/dark/deleteBtn.svg" alt="" /> : <img src="/assets/others/deleteBtn.svg" alt="" />}
           </button>
-          <Link href={`/dua/${dua.cat_id}/${dua.subcat_id}#${dua.id}`}>
+          <Link href={`/dua/${dua.cat_id}?dua=${dua.id}`}>
             {theme === "dark" ? <img src="/assets/others/dark/direct.svg" alt="" /> : <img src="/assets/others/direct.svg" alt="" />}
           </Link>
           {theme === "dark" ? <img src="/assets/others/dark/share.svg" alt="" /> : <img src="/assets/others/share.svg" alt="" />}
